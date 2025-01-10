@@ -8,10 +8,10 @@ type ChatbotProps = {
 };
 
 const Chatbot: React.FC<ChatbotProps> = ({
-  headerText = "Chat with us!",
+  headerText = "Generate Insight!",
   themeColor = "#4CAF50",
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [messages, setMessages] = useState<
     { text: string; sender: "user" | "bot" }[]
   >([]);

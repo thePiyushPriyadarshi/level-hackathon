@@ -1,6 +1,79 @@
 // Note: Replace *<YOUR_APPLICATION_TOKEN>* with your actual Application token
 
 import { NextResponse } from "next/server";
+import { DataAPIClient } from "@datastax/astra-db-ts";
+import { stringify } from "querystring";
+import { Type } from "lucide-react";
+
+
+async function getData(){
+            
+        
+            // Initialize the client
+            const client = new DataAPIClient(process.env.DB);
+            const db = client.db('https://6696a652-7beb-46eb-8c08-496987121cac-us-east-2.apps.astra.datastax.com', { keyspace: "default_keyspace" });
+
+            const colls = await db.listCollections();
+            console.log('Connected to AstraDB:', colls);
+
+
+            const table = db.collection('post_2048');
+
+            // Fetch all rows
+            const rows = await table.find().toArray();
+
+           // console.log('Fetched Data from Table:', rows);
+            
+            return datagroupBy(rows);
+            
+                // const result = await db.execute(`
+                //   SELECT Type, AVG(Likes) AS avg_likes, AVG(Shares) AS avg_shares, AVG(Comments) AS avg_comments
+                //   FROM post_2048
+                //   GROUP BY Type;
+                // `);
+
+                // console.log('Aggregated Data:', result.rows);
+            
+           
+}
+function datagroupBy(data) {
+    console.log('Data length'  , data.length);
+    let groupedData = {
+    };
+    for (let i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        const type = data[i].post_type.toLowerCase();
+        
+        if (!groupedData[type]) {
+          groupedData[type] = { total_likes:0 , total_comments:0 , total_shares:0,avg_likes: 0, avg_shares: 0, avg_comments: 0, count: 0 };
+        }
+      
+        const likes = parseInt(data[i].likes, 10);
+        const shares = parseInt(data[i].shares, 10);
+        const comments = parseInt(data[i].comments, 10);
+      
+        groupedData[type].total_likes += likes;
+        groupedData[type].total_shares += shares;
+        groupedData[type].total_comments += comments;
+        groupedData[type].count += 1;
+      }
+      Object.keys(groupedData).forEach((key) => {
+        const group = groupedData[key];
+        
+        if (group.count > 0) { // Ensure count is not zero to avoid division by zero
+          group.avg_likes = group.total_likes / group.count;
+          group.avg_shares = group.total_shares / group.count;
+          group.avg_comments = group.total_comments / group.count;
+        }
+      });
+      
+    console.log('Grouped Data:', groupedData);
+    return groupedData;
+}
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
 
 class LangflowClient {
     constructor(baseURL, applicationToken) {
@@ -73,13 +146,25 @@ class LangflowClient {
     }
 }
 
-
+//Give me the best post performing post type
 
 export async function POST(req) {
-
+    // await sleep(5000);
+//     return NextResponse.json({
+//         success: true,
+//         message: `The best-performing post type is **Reels**, and here’s why:\n
+// •Reels outperform with **1.3x more likes** than carousels and **25% more likes** than static images, demonstrating higher user interest. \n
+// •Reels generate **1.3x more comments** than static images and **1.5x more comments** than carousels, indicating greater engagement.\n
+// •Reels maintain a balanced engagement, achieving **1.03x more shares** than carousels while being only **5% behind static images** in total shares.\n
+// •Reels are the most engaging post type across multiple metrics, making them the top choice for maximizing interaction.`,
+//     });
     try {
-        const { inputValue } = await req.json();
-
+        let  inputValue  = (await req.json()).inputValue;
+        let dbData  = JSON.stringify(await getData());
+        //console.log("DB Data:", dbData);
+        inputValue = dbData + " " +  inputValue;
+        //console.log("Input Value:", inputValue);
+        // inputType +=stringify(await req.json());
 
         const flowIdOrName = process.env.FLOWID;
         const langflowId = process.env.LANGFLOWID;
@@ -94,7 +179,8 @@ export async function POST(req) {
         const tweaks = {
             "ChatInput-pAup1": {},
             "ChatOutput-mydDO": {},
-            "GoogleGenerativeAIModel-98icO": {}
+            "GoogleGenerativeAIModel-98icO": {},
+            "Prompt-ceETP": {}
         };
         let response;
         response = await langflowClient.runFlow(
