@@ -75,7 +75,7 @@ const Hero = () => {
   const barOptions = {
     responsive: true,
     plugins: {
-      legend: { position: "top" },
+      legend: { position: "top" as const },
     },
   };
 
@@ -122,7 +122,7 @@ const Hero = () => {
               <select
                 className="px-4 py-2 bg-gray-100 border border-gray-300 rounded-md text-gray-700"
                 value={selectedOption}
-                onChange={(e) => setSelectedOption(e.target.value)}
+                onChange={(e) => setSelectedOption(e.target.value as "carousel" | "static" | "reel")}
               >
                 <option value="carousel">Carousel</option>
                 <option value="static">Static</option>
