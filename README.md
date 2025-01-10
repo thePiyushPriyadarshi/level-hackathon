@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Social Media Performance Analysis
 
-## Getting Started
+## Overview
+Social Media Performance Analysis is a [Next.js](https://nextjs.org/) application designed to provide actionable insights by analyzing data fetched from Astra DB using the [LangFlow](https://www.langflow.org/) API.
 
-First, run the development server:
+## Features
+- **Data Fetching**: Retrieves structured data from Astra DB.
+- **Data Processing**: Utilizes the LangFlow API for efficient and robust data processing.
+- **Insight Generation**: Generates actionable insights and visualizations using LangFlow.
+- **User-Friendly Interface**: A clean and responsive interface built with Next.js.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Live Application
+- **Production Url**: https://level-hackathon-ten.vercel.app/
+- **Platform**: [Vercel](https://vercel.com/)
+- **Status**: Active
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
+- **Frontend**: [Next.js](https://nextjs.org/)
+- **API**: [LangFlow](https://langflow.org/)
+- **Database**: [Astra DB](https://www.datastax.com/astra)
+- **Data Insights**: Flow
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Installation
 
-## Learn More
+### Prerequisites
+- Node.js installed (v16+ recommended)
+- Astra DB setup and credentials
+- LangFlow API access
 
-To learn more about Next.js, take a look at the following resources:
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/thePiyushPriyadarshi/level-hackathon.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd level-hackathon
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Create a `.env` file and add the following environment variables:
+   ```env
+   FLOWID = <flow-id>
+   LANGFLOWID = <langflow-api-key>
+   TOKEN = <database-token>
+   ```
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
+1. Open your browser and navigate to `http://localhost:3000`.
+2. Upload or input your social media data.
+3. View detailed performance insights and visualizations.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request.
 
-## Deploy on Vercel
+## Acknowledgements
+- [Next.js Documentation](https://nextjs.org/docs)
+- [LangFlow API](https://langflow.org/)
+- [Astra DB Documentation](https://www.datastax.com/astra)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Let me know if you'd like additional sections or customization!
