@@ -1,9 +1,7 @@
 // Note: Replace *<YOUR_APPLICATION_TOKEN>* with your actual Application token
 
 import { NextResponse } from "next/server";
-import { DataAPIClient } from "@datastax/astra-db-ts";
-import { stringify } from "querystring";
-import { Type } from "lucide-react";
+import { DataAPIClient } from "@datastax/astra-db-ts"; 
 
 
 async function getData(){
@@ -70,9 +68,7 @@ function datagroupBy(data) {
     console.log('Grouped Data:', groupedData);
     return groupedData;
 }
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+
 
 
 class LangflowClient {

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Doughnut, Bar } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from "chart.js";
-import { ArrowRight, Sparkles } from "lucide-react";
 import { useEffect } from "react";
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
@@ -32,6 +31,7 @@ const Hero = () => {
   const [selectedOption, setSelectedOption] = useState("carousel");
 
   // Data for select box options
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ insights , setInsights ] = useState({
     "carousel": "•Carousels gather <b>60% as many likes</b> as reels and <b>75% as many likes</b> as static images.<br/>•Carousels receive <b>70% as many comments</b> as static images and <b>75% as many comments</b> as reels.<br/>•Carousels get equal shares compared to reels but <b>3% fewer shares</b> than static images.",
     "static": "•Static images receive <b>30% more likes</b> than carousels but <b>80% as many likes</b> as reels.<br/>•Static images gather <b>20% more comments</b> than carousels but <b>90% as many comments</b> as reels.<br/> • ⁠Static images get equal shares compared to reels but <b>1.03x more shares</b> than carousels.",
